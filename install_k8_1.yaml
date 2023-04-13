@@ -1,7 +1,7 @@
 ---
 - name: Install Kubernetes master and worker
   hosts: all
-  become: yes
+  become: true
   tasks:
 
    - name: Make the Swap inactive
@@ -53,19 +53,10 @@
    - name: Initialize Kubernetes cluster on master
      command: kubeadm init --ignore-preflight-errors=all --v=5
      when: "'master' in group_names"
-     register: token
 
-   - name: Copy Kubernetes config to user directory
-     command: mkdir -p $HOME/.kube && cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && chown $(id -u):$(id -g) $HOME/.kube/config
+   - name: Making user directory to store Kubernetes config
+     shell: mkdir -p $HOME/.kube
      when: "'master' in group_names"
-
-   - name: Install Calico networking
-     command: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
-     when: "'master' in group_names"
-
-   - name: Join worker to Kubernetes cluster
-     command: kubeadm join 172.31.23.116:6443  --token <token> --discovery-token-ca-cert-hash <hash>
-     when: "'worker' in group_names"
 
   handlers:
    - name: restart kubelet
