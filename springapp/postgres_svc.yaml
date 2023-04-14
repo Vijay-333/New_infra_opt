@@ -9,7 +9,7 @@ spec:
   type: ClusterIP
   ports:
   - name: postgres-svc
-    port: 8081
-    targetPort: 8081
+    port: 5432
+    targetPort: 5432
   selector:
     app: db

@@ -19,13 +19,19 @@ spec:
         role: backend
     spec:
       containers:
-      - image: postgres:13.1-alpine
-        name: postgres
+      - name: postgres
+        image: postgres:13
         env:
         - name: POSTGRES_USER
           value: root
         - name: POSTGRES_PASSWORD
           value: pwd
         ports:
-        - containerPort: 8081
+        - containerPort: 5432
           name: postgres
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: postgres-storage
+        emptyDir: {}
