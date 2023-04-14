@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pod-user
+  namespace: application
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-role
+  namespace: application
+rules:
+- apiGroups: ["*"]
+  resources: ["pods"]
+  verbs: ["create", "list", "get", "update", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pod-rolebinding
+  namespace: application
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pod-role
+subjects:
+- kind: User
+  name: pod-user
+  apiGroup: rbac.authorization.k8s.io

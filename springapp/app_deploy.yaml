@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: springsql
-        image: bitnami/spring-cloud-dataflow
+        image: marcelalt/springsql:latest
         ports:
         - containerPort: 8080
           name: springsql
