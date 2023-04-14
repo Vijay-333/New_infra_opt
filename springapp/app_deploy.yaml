@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: springsql
+  name: springsql
+  namespace: application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springsql
+      role: frontend
+  template:
+    metadata:
+      labels:
+        app: springsql
+        role: frontend
+    spec:
+      containers:
+      - name: springsql
+        image: marcelalt/springsql:latest
+        ports:
+        - containerPort: 8080
+          name: springsql
+        resources:
+           limits:
+             cpu: 200m
