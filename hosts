@@ -1,8 +1,9 @@
 [master]
-m ansible_host=172.31.23.116
+m ansible_host=172.31.60.216
 
 [workers]
-w1 ansible_host=172.31.18.124
+w1 ansible_host=172.31.26.159
+w2 ansible_host=172.31.24.169
 # This is the default ansible 'hosts' file.
 #
 # It should live in /etc/ansible/hosts
